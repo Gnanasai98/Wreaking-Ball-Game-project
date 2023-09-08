@@ -5244,6 +5244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pin: {fileID: 1930438757}
   rover: {fileID: 1015491246392451786}
+  ball: {fileID: 671611172}
+  pinSpeed: 4
 --- !u!1 &3653456393559184808
 GameObject:
   m_ObjectHideFlags: 0
