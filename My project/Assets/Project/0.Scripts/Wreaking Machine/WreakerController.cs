@@ -44,6 +44,20 @@ namespace WB.Controller {
             HorizontalPinMovement(x_InputValue);
             VerticalRopeDistance(y_InputValue);
             RoverMovement(x_RoverNeg, x_RoverPos);
+            
+            
+            bool grounded = isGrounded(this);       // storing return type
+           Body body = new Body(8, "ida-platform"); // object class
+                                                    // method inside method
+            Console.WriteLine(grounded);             //OOps 4 pillar abstraction, inhertance, encapsulation and polmorphism
+                                                     //poc
+
+        }
+
+        private bool isGrounded(WreakerController wreakerController)
+        {
+
+            return false;
         }
 
         private void RoverMovement(bool x_RoverNeg, bool x_RoverPos)
@@ -70,7 +84,7 @@ namespace WB.Controller {
         {
 
             // Calculate the desired change in distance based on input and speed
-            float desiredDistanceChange = y_InputValue * Time.deltaTime * pinSpeed;
+            float desiredDistanceChange = -y_InputValue * Time.deltaTime * pinSpeed;
 
             // Calculate the clamped distance change within the valid range
             float clampedDistanceChange = Mathf.Clamp(desiredDistanceChange, -ballJoint.distance, 9f - ballJoint.distance);
@@ -97,6 +111,16 @@ namespace WB.Controller {
                 intervalPos = Mathf.Clamp(intervalPos, -1.8f, 1.8f) + x_InputValue * Time.deltaTime * pinSpeed;
 
             }
+        }
+    }
+    //C#
+    class Body {
+        int id;
+        string platform_ID;
+       public Body(int id, string platform_ID) 
+        { 
+            this.id = id;
+            this.platform_ID = platform_ID;
         }
     }
 
