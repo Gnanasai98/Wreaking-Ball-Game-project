@@ -19,6 +19,8 @@ namespace WB.Controller {
         float pinSpeed = 5;
         [SerializeField]
         float roverSpeed = 5;
+        [SerializeField]
+        float dampingLength = 9f;
 
         Rigidbody2D rbPin;
         Rigidbody2D rbRover;
@@ -44,21 +46,10 @@ namespace WB.Controller {
             HorizontalPinMovement(x_InputValue);
             VerticalRopeDistance(y_InputValue);
             RoverMovement(x_RoverNeg, x_RoverPos);
-            
-            
-            bool grounded = isGrounded(this);       // storing return type
-           Body body = new Body(8, "ida-platform"); // object class
-                                                    // method inside method
-            Console.WriteLine(grounded);             //OOps 4 pillar abstraction, inhertance, encapsulation and polmorphism
-                                                     //poc
-
+                       
         }
 
-        private bool isGrounded(WreakerController wreakerController)
-        {
-
-            return false;
-        }
+      
 
         private void RoverMovement(bool x_RoverNeg, bool x_RoverPos)
         {
@@ -87,13 +78,13 @@ namespace WB.Controller {
             float desiredDistanceChange = -y_InputValue * Time.deltaTime * pinSpeed;
 
             // Calculate the clamped distance change within the valid range
-            float clampedDistanceChange = Mathf.Clamp(desiredDistanceChange, -ballJoint.distance, 9f - ballJoint.distance);
+            float clampedDistanceChange = Mathf.Clamp(desiredDistanceChange, -ballJoint.distance, dampingLength - ballJoint.distance);
 
             // Update the ballJoint.distance by adding the clamped distance change
             ballJoint.distance += clampedDistanceChange;
 
             // Clamp the final value between 0 and desired distance
-            ballJoint.distance = Mathf.Clamp(ballJoint.distance, 0, 9f);
+            ballJoint.distance = Mathf.Clamp(ballJoint.distance, 0, dampingLength);
 
         }
 
@@ -113,15 +104,6 @@ namespace WB.Controller {
             }
         }
     }
-    //C#
-    class Body {
-        int id;
-        string platform_ID;
-       public Body(int id, string platform_ID) 
-        { 
-            this.id = id;
-            this.platform_ID = platform_ID;
-        }
-    }
+    
 
 }
